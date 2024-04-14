@@ -7,7 +7,6 @@ import Episodes from "./Pages/Episodes";
 import Location from "./Pages/Location";
 import CardDetails from "./components/Card/CardDetails";
 
-
 function App() {
   return (
     <Router>

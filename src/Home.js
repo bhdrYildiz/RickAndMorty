@@ -23,8 +23,7 @@ const Home = () => {
       updateFetchedData(data);
     })();
   }, [api]);
-
-   return (
+  return (
     <div className="App">
       <h1 className="text-center mb-3">Characters</h1>
       <Search setSearch={setSearch} updatePageNumber={updatePageNumber} />
