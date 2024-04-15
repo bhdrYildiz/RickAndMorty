@@ -22,7 +22,7 @@ const Search = ({ setSearch, updatePageNumber }) => {
         onClick={searchBtn}
         className={`${styles.btn} btn btn-primary fs-5`}
       >
-        Search
+        Ara
       </button>
     </form>
   );

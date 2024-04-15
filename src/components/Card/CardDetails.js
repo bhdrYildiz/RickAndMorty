@@ -1,8 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addToFavorites } from "../../Reducer/favoriteSlice";
+import CustomToast from "../../CustomToast";
+import { useSelector } from "react-redux";
+import CustomAlert from "../../CustomAlert";
 
 const CardDetails = () => {
+  const [showToast, setShowToast] = useState(false);
+  const [showAlert, setShowAlert] = useState(false); 
   let { id } = useParams();
+  const dispatch = useDispatch();
+  const favorites = useSelector((state) => state.favorites.favorites); // Değişiklik burada
+
 
   let [fetchedData, updateFetchedData] = useState([]);
   let { name, location, origin, gender, image, status, species } = fetchedData;
@@ -15,6 +25,16 @@ const CardDetails = () => {
       updateFetchedData(data);
     })();
   }, [api]);
+
+  const handleAddToFavorites = (x) => {
+    if (favorites.length >= 10) {
+      setShowAlert(true);
+      return;
+    }
+    dispatch(addToFavorites(x));
+
+    setShowToast(true);
+  };
 
   return (
     <div className="container d-flex justify-content-center mb-5">
@@ -48,6 +68,9 @@ const CardDetails = () => {
             <span className="fw-bold">Species: </span>
             {species}
           </div>
+          <button onClick={handleAddToFavorites} className="btn btn-primary px-4 py-2 shadow mt-3">Favoriye Ekle</button>
+          <CustomAlert show={showAlert} setShow={setShowAlert}/>
+          <CustomToast showToast={showToast} setShowToast={setShowToast} />
         </div>
       </div>
     </div>

@@ -35,17 +35,20 @@ const Navbar = () => {
         >
           <div className="navbar-nav fs-5">
             <NavLink to="/" className="nav-link">
-              Characters
+              Karakterler
             </NavLink>
             <NavLink to="/episodes" className="nav-link">
-              Episode
+              Bölümler
             </NavLink>
             <NavLink
               activeClassName="active"
               className="nav-link"
               to="/location"
             >
-              Location
+              Lokasyonlar
+            </NavLink>
+            <NavLink to="/favorites" className="nav-link">
+            Favori Karakterler
             </NavLink>
           </div>
         </div>

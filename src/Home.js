@@ -5,6 +5,8 @@ import Search from "./components/Search/Search";
 import Card from "./components/Card/Card";
 import Pagination from "./components/Pagination/Pagination";
 import Filter from "./components/Filter/Filter";
+import { useDispatch } from "react-redux";
+import { addToFavorites } from "./Reducer/favoriteSlice";
 
 const Home = () => {
   let [pageNumber, updatePageNumber] = useState(1);
@@ -14,6 +16,11 @@ const Home = () => {
   let [fetchedData, updateFetchedData] = useState([]);
   let [search, setSearch] = useState("");
   let { info, results } = fetchedData;
+  const dispatch = useDispatch();
+
+  const handleAddToFavorites = (character) => {
+    dispatch(addToFavorites(character));
+  };
 
   let api = `https://rickandmortyapi.com/api/character/?page=${pageNumber}&name=${search}&status=${status}&gender=${gender}&species=${species}`;
 
@@ -25,7 +32,7 @@ const Home = () => {
   }, [api]);
   return (
     <div className="App">
-      <h1 className="text-center mb-3">Characters</h1>
+      <h1 className="text-center mb-3">Karakterler</h1>
       <Search setSearch={setSearch} updatePageNumber={updatePageNumber} />
       <div className="container">
         <div className="row">
@@ -39,7 +46,7 @@ const Home = () => {
           />
           <div className="col-lg-8 col-12">
             <div className="row">
-              <Card page="/" results={results} />
+              <Card page="/" results={results} handleAddToFavorites={handleAddToFavorites} />
             </div>
           </div>
         </div>

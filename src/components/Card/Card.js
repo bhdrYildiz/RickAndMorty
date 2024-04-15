@@ -1,8 +1,21 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styles from "./Card.module.scss";
+import { useDispatch } from "react-redux";
+import { addToFavorites } from "../../Reducer/favoriteSlice";
+import CustomToast from "../../CustomToast";
+import { useState } from "react";
 
 const Card = ({ page, results }) => {
+  const [showToast, setShowToast] = useState(false);
+  const dispatch = useDispatch();
+
+  const handleAddToFavorites = (x) => {
+    dispatch(addToFavorites(x));
+
+    setShowToast(true);
+  };
+
   let display;
 
   if (results) {
@@ -26,9 +39,8 @@ const Card = ({ page, results }) => {
                 <div className="fs-6 fw-normal">Last Location</div>
                 <div className="fs-5">{location.name}</div>
               </div>
-            </div>
+            </div>            
           </div>
-
           {(() => {
             if (status === "Dead") {
               return (
@@ -56,14 +68,17 @@ const Card = ({ page, results }) => {
               );
             }
           })()}
+          
+          {<button onClick={() => handleAddToFavorites(x)} className="btn btn-primary px-4 py-2 shadow mt-3">Favoriye Ekle</button>}
         </Link>
+        
       );
     });
   } else {
     display = "No Characters Found :/";
   }
-
-  return <>{display}</>;
+  return <>{display}
+  <CustomToast showToast={showToast} setShowToast={setShowToast} /></>;
 };
 
 export default Card;
